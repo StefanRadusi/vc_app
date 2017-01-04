@@ -7,6 +7,7 @@ router.get('/', function(req, res) {
   res.render('main', { title: 'Vacation Leave' });
 });
 
+//test
 router.post('/update', function(req, res) {
   let monkdb = require('monk')('localhost/vc_app');
   let db = new Db(monkdb);
