@@ -1,0 +1,73 @@
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+        script(src='/javascripts/moment.min.js')
+        script(src='/javascripts/bundle.js')
+
+    body
+        div.header
+            include icon.html
+            span.title= title
+            div.user.hide
+                p.name user
+                img(src='/images/icon_user.png')
+
+        div.main
+            div.log_in
+                p Log in with email
+                input
+
+            div.panel.hide
+                div.columns
+                    div.month
+                        p.column_name Month
+                        div.month_input
+                            p.month_text January
+                            p.up >
+                            p.down >
+
+                        p.total total/month
+                        div.total
+                            p 0
+
+                    div.days
+                        p.column_name Days
+                        div.calendar
+
+                    div.actions
+                        p.column_name Actions
+                        div.clear_selection
+                            img(src='/images/clear_selection.png')
+                            p clear selection
+                        div.save_interval
+                            img(src='/images/save_interval.png')
+                            p add interval
+
+                div.display.hide
+                    p.title Vacation Leave Intervals
+                        span >
+                    table
+                        thead
+                            th Month
+                            th Days
+                            th Total
+                        tbody
+                            tr
+                                td Jan
+                                td 2,6,8,9
+                                td 6
+                            tr
+                                td Feb
+                                td 16,15
+                                td 2
+                    div.totalYear
+                        p Total/year
+                        p.total 0
+
+                    p.savePTO Save
+
+
+

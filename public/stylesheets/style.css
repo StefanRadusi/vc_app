@@ -1,0 +1,315 @@
+.rgba-primary-0 { color: rgba(175, 66, 72,1) }	/* Main Primary color */
+.rgba-primary-1 { color: rgba( 59,  0,  3,1) }
+.rgba-primary-2 { color: rgba(116,  7, 12,1) }
+.rgba-primary-3 { color: rgba(234,162,165,1) }
+.rgba-primary-4 { color: rgba(253,248,248,1) }
+
+.rgba-secondary-1-0 { color: rgba( 41,108,106,1) }	/* Main Secondary color (1) */
+.rgba-secondary-1-1 { color: rgba(  0, 37, 35,1) }
+.rgba-secondary-1-2 { color: rgba(  4, 72, 69,1) }
+.rgba-secondary-1-3 { color: rgba(100,145,143,1) }
+.rgba-secondary-1-4 { color: rgba(203,207,207,1) }
+
+.rgba-secondary-2-0 { color: rgba(137,168, 64,1) }	/* Main Secondary color (2) */
+.rgba-secondary-2-1 { color: rgba( 40, 57,  0,1) }
+.rgba-secondary-2-2 { color: rgba( 80,111,  6,1) }
+.rgba-secondary-2-3 { color: rgba(203,224,155,1) }
+.rgba-secondary-2-4 { color: rgba(246,248,242,1) }
+
+html {
+  height: 100%;
+}
+
+body {
+  /*min-height: calc(100% - 16px);*/
+  display: flex;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  flex-direction: column;
+  position: relative;
+  background: rgba(253,248,248,1);
+}
+
+a {
+  color: #00B7FF;
+}
+
+h3.prime {
+  color: blue;
+}
+
+div.header {
+  height: 50px;
+  margin-top: 10px;
+  display: flex;
+  position: relative;
+  justify-content: flex-start;
+  align-items: center;
+  background: rgba(175, 66, 72,1);
+}
+
+div.header > img {
+  float: left;
+}
+
+div.header svg {
+  position: absolute;
+  top: -20px;
+  left: 0px;
+}
+
+div.header span.title {
+  margin-left: 100px;
+  font-size: 17px;
+  color: rgba(253,248,248,1)
+}
+
+div.header div.user {
+  /*border: 1px solid black;*/
+  margin-left: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+div.header div.user img {
+  height: 70%;
+  margin: 10px;
+}
+
+div.header div.user p {
+  color: rgba(234,162,165,1)
+}
+
+div.main {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+div.main div.log_in {
+  margin-top: 5%; 
+}
+
+div.main div.log_in p {
+  text-align: center;
+  font-size: 18px;
+}
+
+div.main div.log_in input {
+  height: 25px;
+  width: 200px;
+  text-align: center;
+}
+
+div.main div.panel {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+div.main div.panel div.columns {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  min-height: 350px;
+}
+
+div.main div.panel div.columns p {
+  text-align: center;
+  font-size: 20px;
+  color: rgba(  4, 72, 69,1);
+  cursor: default;
+}
+
+div.main div.panel div.columns p.column_name {
+  font-weight: bold;
+  /*color: rgba(  4, 72, 69,1);*/
+}
+
+div.main div.panel div.columns > div {
+  display: flex;
+  flex-direction: column;
+}
+
+div.main div.panel div.columns > div > div {
+  display: flex;
+}
+
+
+div.main div.panel div.columns div.days div.calendar {
+  flex-wrap: wrap;
+  max-width: 280px;
+}
+
+div.main div.panel div.columns div.days div.calendar p {
+  margin: 0;
+  width: 30px;
+  height: 20px;
+  font-size: 20px;
+  /*text-align: center;*/
+  padding: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+}
+
+div.main div.panel div.columns div.days div.calendar p.days_name {
+  font-size: 14px;
+}
+
+div.main div.panel div.columns div.month div.total p {
+  width: 100%;
+}
+div.main div.panel div.columns div.month p.total {
+  border-top: 1px solid rgba(203,207,207,1);
+  padding-top: 20px;
+  margin-bottom: 0;
+}
+
+
+div.main div.panel div.columns div.month {
+  min-width: 180px;
+}
+
+div.main div.panel div.columns div.month_input {
+  align-items: center;
+  justify-content: flex-end;
+}
+
+div.main div.panel div.columns div.month_input p.up,
+div.main div.panel div.columns div.month_input p.down {
+
+  margin: 0;
+  width: 30px;
+  height: 22px;
+  font-size: 20px;
+  /*text-align: center;*/
+  padding: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+
+  /*margin-top: 10px;*/
+
+  background: rgba(137,168, 64,1);
+  color: white;
+  border-radius: 10px;
+}
+
+div.main div.panel div.columns div.month_input p.up {
+  transform: rotateZ(-90deg);
+  margin-left: 10px;
+}
+
+div.main div.panel div.columns div.month_input p.down {
+  transform: rotateZ(90deg);
+}
+
+div.main div.panel div.columns div.actions div.save_interval img,
+div.main div.panel div.columns div.actions div.clear_selection img {
+  height: 40px;
+  width: 25px;
+  margin-right: 10px;
+}
+
+div.main div.panel div.columns div.actions div.save_interval p,
+div.main div.panel div.columns div.actions div.clear_selection p {
+  margin-top: 10px;
+}
+
+.fill {
+  background : rgba(203,207,207,1);
+}
+
+.weekend {
+  background: rgba(137,168, 64,1);
+}
+
+.state_holiday {
+  background: rgba(175, 66, 72,1);
+}
+
+.day_selected {
+  box-shadow: inset 0px 0px 5px rgba(40, 57, 0, 0.5);
+}
+
+div.main div.panel div.display {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  /*align-self: flex-start;*/
+}
+
+div.main div.panel div.display p.title {
+  width: 100%;
+  /*padding: 0;*/
+  /*height: 30px;*/
+  border-bottom: 1px solid rgba(203,207,207,1);
+  font-size: 20px;
+  color: rgba(  4, 72, 69,1);
+  cursor: default;
+}
+
+div.main div.panel div.display p.title span {
+  transform: rotateZ(90deg);
+  padding-right: 5px;
+  padding-left: 5px;
+  background: rgba(137,168, 64,1);
+  border-radius: 8px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  float: right;
+}
+
+div.main div.panel div.display p.savePTO {
+  width: 100%;
+  font-size: 20px;
+  color: rgba(  4, 72, 69,1);
+  cursor: default;
+}
+
+div.main div.panel div.display table {
+  font-size: 20px;
+  color: rgba(  4, 72, 69,1);
+  margin-right: 20px;
+  cursor: default;
+}
+
+div.main div.panel div.display table th {
+  font-size: 14px;
+}
+
+div.main div.panel div.display table td {
+  padding: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+div.main div.panel div.display table tbody tr:hover {
+  background: rgba(203,224,155,1)
+}
+
+div.main div.panel div.display div.totalYear {
+  padding-left: 10px;
+  border-left: 1px solid rgba(203,207,207,1);
+  max-height: 60px;
+}
+
+
+div.main div.panel div.display div.totalYear p {
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: rgba(  4, 72, 69,1);
+}
+
+div.main div.panel div.display div.totalYear p:first-child {
+  font-size: 14px;
+  margin-top: 3px;
+  font-weight: bold;
+}
+
+.hide {
+  display: none !important;
+}
