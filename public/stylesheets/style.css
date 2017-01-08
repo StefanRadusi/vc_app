@@ -69,6 +69,8 @@ div.header div.user {
   height: 100%;
   display: flex;
   align-items: center;
+  transition: opacity 0.5s;
+  opacity: 0;
 }
 
 div.header div.user img {
@@ -335,6 +337,7 @@ div.main div.panel div.display div.totalYear {
 
 div.main div.panel div.display div.totalYear p {
   margin: 0;
+  margin-top: 12px;
   margin-bottom: 10px;
   font-size: 20px;
   color: rgba(  4, 72, 69,1);

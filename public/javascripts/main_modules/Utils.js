@@ -1,4 +1,4 @@
-module.exports.random =  function (jq_obj, text_new, timmer) {
+module.exports.random_text_change =  function (jq_obj, text_new, timmer) {
 
     let [,width] = /(\d+)/.exec(jq_obj.css('font-size'));
 
@@ -80,4 +80,16 @@ module.exports.random =  function (jq_obj, text_new, timmer) {
 
     }, initial_time + timmer);
 
+}
+
+module.exports.change_char_nice = function(jq_obj, new_text) {
+    jq_obj.removeClass('single_char_change');
+    jq_obj.addClass('single_char_change');
+    setTimeout(function(){
+        jq_obj.text(new_text);
+    }, 250);
+
+    setTimeout(function () {
+        jq_obj.removeClass('single_char_change');
+    }, 600);
 }
