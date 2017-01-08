@@ -15,3 +15,11 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('./public/javascripts/'))
     });
 });
+
+//start by webstorm
+gulp.task('webstorm_scripts', function() {
+        gulp.src('./public/javascripts/main.js')
+            .pipe(browserify({debug : true}))
+            .pipe(rename('bundle.js'))
+            .pipe(gulp.dest('./public/javascripts/'));
+});

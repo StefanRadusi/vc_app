@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectTasksOptions" suppressed-tasks="Jade;Babel">
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="$ProjectFileDir$/node_modules/gulp/bin/gulp.js scripts" />
+      <option name="arguments" value="$ProjectFileDir$/node_modules/gulp/bin/gulp.js webstorm_scripts" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="broswerfy" />
       <option name="exitCodeBehavior" value="ERROR" />

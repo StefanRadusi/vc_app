@@ -2,9 +2,11 @@
  *  Created by stef on 12/29/2016.
  */
 let config = require('./holidayConfig.js');
+let awesome_text_change = require('./randomTextChange.js');
+
 let source_data = {
-    user : '',
-    year: '',
+    user : 'stef',
+    year: '2017',
     months: {}
 };
 
@@ -31,7 +33,6 @@ $(document).ready(function() {
 
     let logIn = new LogIn();
     logIn.send_input_text(header);
-    //logIn.jq.hide();
 
     $(document).on('user_year_set', function() {
         console.log(source_data);
@@ -42,22 +43,21 @@ $(document).ready(function() {
         panel.days.save_interval(displayIntervals);
     });
 
+
+    //$(document).trigger('user_year_set');
 });
 
 // ---------- main -----------
 
 class Header {
     constructor() {
-            this.jq = $('div.header');
-            this.title = this.jq.find('span').text();
-    
-        }
+        this.jq = $('div.header');
+        this.title = this.jq.find('span').text();
+    }
     
     set_user(user_name) {
-            //this.user = user_name;
-            this.jq.find('p').text(user_name);
-            //this.jq.find('div.user').removeClass('hide');
-        }
+        awesome_text_change.random(this.jq.find('p').first(), user_name, 100);
+    }
     
     set_year(year) {
     
@@ -67,8 +67,8 @@ class Header {
             } else {
                 this.title = this.title + ' - ' + year;
             }
-    
-            this.jq.find('span').text(this.title);
+
+        awesome_text_change.random(this.jq.find('span').first(), this.title, 100);
     }
 }
 
@@ -82,19 +82,18 @@ class LogIn {
 
     set_messaje(messaje) {
         this.message = messaje;
-        this.jq.find('p').text(this.message);
+        awesome_text_change.random(this.jq.find('p').first(), messaje, 100);
     }
 
     send_input_text(header) {
         return this.jq.find('input').on('keypress', $.proxy( function(event) {
             if (event.key == 'Enter' && !this.user) {
                 this.user = $(event.currentTarget).val();
-                
-                //console.log(header);
+
                 header.set_user(this.user);
                 source_data.user = this.user;
                 header.jq.find('div.user').removeClass('hide');
-                
+
                 this.set_messaje('Please choose year');
                 this.jq.find('input').val('');
             } else if (event.key == 'Enter') {
@@ -141,7 +140,7 @@ class Month {
 
     set_month(month) {
         this.month = month;
-        this.jq.find('p.month_text').text(month);
+        awesome_text_change.random(this.jq.find('p.month_text').first(),month, 100);
     }
 
     change_month_up_down() {
@@ -230,13 +229,15 @@ class Days {
         if (fill) {
             day.nr = day_nr;
             day.day_of_week = -1;
-            day.jq.text('');
+            //day.jq.text('');
+            change_char_nice(day.jq, '');
             day.type ='fill';
             day.jq.addClass('fill');
         } else {
             day.nr = day_nr;
             day.day_of_week =  moment(this.year + ' ' + this.month + ' ' + day_nr, "YYYY MMMM DD").day();
-            day.jq.text(day.nr);
+            //day.jq.text(day.nr);
+            change_char_nice(day.jq, day.nr);
             day.type = day.day_of_week == 0 || day.day_of_week == 6 ? 'weekend' : 'normal';
 
             day.type = config[this.month] && config[this.month].filter((x) => x == day.nr).length ? 'state_holiday' : day.type;
@@ -258,27 +259,36 @@ class Days {
             total_for_lenght = total_for_lenght > this.days.length ? total_for_lenght : this.days.length;
             let current_mmonth_day_nr = 1;
 
+            let timmer = 0;
             for (let i = 0; i < total_for_lenght; i++) {
-                if (this.days[i]) {
-                    if ((first_week_day == 0 && i < 6) || (first_week_day > i + 1)) {
-                        this.set_day(this.days[i], 0, 1);
-                    } else if (current_mmonth_day_nr <= this.total_days) {
-                        this.set_day(this.days[i], current_mmonth_day_nr);
-                        current_mmonth_day_nr++;
+                setTimeout($.proxy(function(){
+                    if (this.days[i]) {
+                        if ((first_week_day == 0 && i < 6) || (first_week_day > i + 1)) {
+                            this.set_day(this.days[i], 0, 1);
+                        } else if (current_mmonth_day_nr <= this.total_days) {
+                            this.set_day(this.days[i], current_mmonth_day_nr);
+                            current_mmonth_day_nr++;
+                        } else {
+                            this.days[i].jq.remove();
+                            this.days[i] = '';
+                        }
                     } else {
-                        this.days[i].jq.remove();
-                        this.days[i] = '';
+                        let day = this.create_month_day(current_mmonth_day_nr);
+                        this.jq.find('div.calendar').append(day.jq);
+                        this.days.push(day);
+                        current_mmonth_day_nr++;
                     }
-                } else {
-                    let day = this.create_month_day(current_mmonth_day_nr);
-                    this.jq.find('div.calendar').append(day.jq);
-                    this.days.push(day);
-                    current_mmonth_day_nr++;
-                }
-            }
-            this.days = this.days.filter((x) => x);
+                }, this), timmer);
 
-            this.preselect();
+                timmer += 50;
+            }
+
+            setTimeout($.proxy(function(){
+
+                this.days = this.days.filter((x) => x);
+                this.preselect();
+            }, this), timmer + 500);
+
         }, this));
     }
 
@@ -289,12 +299,12 @@ class Days {
 
             if (day.hasClass('day_selected')) {
                 this.days_selected = this.days_selected.remove(day.text());
-                totalDisplay.text(Number(totalDisplay.text()) - 1);
+                change_char_nice(totalDisplay, Number(totalDisplay.text()) -1);
 
                 day.removeClass('day_selected');
             } else if (day.hasClass('')) {
                 this.days_selected.push(Number(day.text()));
-                totalDisplay.text(Number(totalDisplay.text()) + 1);
+                change_char_nice(totalDisplay, Number(totalDisplay.text()) + 1);
 
                 day.addClass('day_selected');
             }
@@ -330,7 +340,7 @@ class Days {
             day.jq.removeClass('day_selected');
         }
         this.days_selected = [];
-        $('div.main div.panel div div.month div.total p').text(0);
+        change_char_nice($('div.main div.panel div div.month div.total p'), 0);
     }
 
     save_interval(display) {
@@ -373,20 +383,27 @@ class DisplayIntervals {
     render_intervals() {
         this.table.on('renderIntervals', $.proxy(function(event){
             console.log(source_data.months);
-            this.table.find('tbody').html('');
-            for (let month in source_data.months) {
-                let row = $('<tr></tr>');
-                row.append(`<td>${month}</td>`);
-                row.append(`<td>${source_data.months[month].join(',')}</td>`);
-                row.append(`<td>${source_data.months[month].length }</td>`);
 
-                this.table.find('tbody').append(row);
-            }
+            this.table.addClass('hide_for_render');
+            setTimeout($.proxy(function(){
 
-            console.log(Object.keys(source_data.months));
-            this.jq.find('div.totalYear p.total').text(Object.keys(source_data.months).reduce(
-                (sum, x) => sum + source_data.months[x].length
-            , 0));
+                this.table.find('tbody').html('');
+                for (let month in source_data.months) {
+                    let row = $('<tr></tr>');
+                    row.append(`<td>${month}</td>`);
+                    row.append(`<td>${source_data.months[month].join(',')}</td>`);
+                    row.append(`<td>${source_data.months[month].length }</td>`);
+
+                    this.table.find('tbody').append(row);
+                }
+
+                console.log(Object.keys(source_data.months));
+                change_char_nice(this.jq.find('div.totalYear p.total'), Object.keys(source_data.months).reduce(
+                    (sum, x) => sum + source_data.months[x].length
+                , 0));
+
+                this.table.removeClass('hide_for_render');
+            }, this), 600);
 
         }, this));
         this.table.trigger('renderIntervals');
@@ -412,4 +429,16 @@ class DisplayIntervals {
         });
     }
     
+}
+
+function change_char_nice(jq_obj, new_text) {
+    jq_obj.removeClass('single_char_change');
+    jq_obj.addClass('single_char_change');
+    setTimeout(function(){
+        jq_obj.text(new_text);
+    }, 250);
+
+    setTimeout(function () {
+        jq_obj.removeClass('single_char_change');
+    }, 600);
 }
