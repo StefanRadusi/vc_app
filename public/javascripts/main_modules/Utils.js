@@ -82,11 +82,13 @@ module.exports.random_text_change =  function (jq_obj, text_new, timmer) {
 
 }
 
+let que_single_char = [];
 module.exports.change_char_nice = function(jq_obj, new_text) {
+    que_single_char.push(new_text);
     jq_obj.removeClass('single_char_change');
     jq_obj.addClass('single_char_change');
     setTimeout(function(){
-        jq_obj.text(new_text);
+        jq_obj.text(que_single_char.shift());
     }, 250);
 
     setTimeout(function () {

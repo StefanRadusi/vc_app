@@ -27,7 +27,7 @@ class DisplayIntervals {
     }
 
     render_intervals() {
-        this.table.on('renderIntervals', $.proxy(function(event){
+        this.table.on('renderIntervals', $.proxy(function(event, intitial_render){
             console.log(this.source_data.months);
 
             this.table.addClass('hide_for_render');
@@ -49,25 +49,25 @@ class DisplayIntervals {
                     , 0));
 
                 this.table.removeClass('hide_for_render');
+                if (intitial_render) {
+                    this.table.find('tbody tr').first().trigger('click');
+                }
             }, this), 600);
 
         }, this));
-        this.table.trigger('renderIntervals');
     }
 
     set_panel_month() {
-        this.table.on('click','tr', function(){
-            console.log(this);
+        this.table.on('click','tbody tr', function(event){
+            console.log(event);
             let month = $(this).find('td').first().text();
             console.log(month);
             $('div.month_input p.month_text').trigger('month_changed', month);
-
-
         });
     }
 
     save_intervals() {
-        this.jq.find('p.savePTO').on('click', $.proxy(function(event) {
+        $('div.actions div.savePTO').on('click', $.proxy(function(event) {
             console.log(this.source_data);
             $.post( "/update", this.source_data, function( data ) {
                 console.log(data.response);

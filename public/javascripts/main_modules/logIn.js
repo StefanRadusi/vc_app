@@ -38,8 +38,8 @@ class LogIn {
                     console.log(this.source_data);
                     this.source_data.months = data.response;
 
-                    $('div.display table').trigger('renderIntervals');
-                    $('div.display table tbody tr').first().trigger('click');
+                    $('div.display table').trigger('renderIntervals', 1);
+                    //$('div.display table tbody tr').first().trigger('click');
                 }, this));
             }
         }, this));

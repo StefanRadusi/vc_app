@@ -17,6 +17,8 @@ class Days {
         this.init_days();
         this.change_days();
         this.clear();
+        
+        this.totalDisplay = 0;
 
     }
 
@@ -45,7 +47,7 @@ class Days {
         let day = {
             nr : '',
             day_of_week : '',
-            jq : $('<p></p>'),
+            jq : $('<p class="clickable"></p>'),
             type : ''
         };
 
@@ -57,6 +59,7 @@ class Days {
     set_day(day, day_nr, fill) {
         day.jq.removeClass('fill');
         day.jq.removeClass('state_holiday');
+        //day.jq.removeClass('clickable');
 
         day.jq.removeClass('weekend');
         if (fill) {
@@ -66,6 +69,7 @@ class Days {
             utils.change_char_nice(day.jq, '');
             day.type ='fill';
             day.jq.addClass('fill');
+            day.jq.removeClass('clickable');
         } else {
             day.nr = day_nr;
             day.day_of_week =  moment(this.year + ' ' + this.month + ' ' + day_nr, "YYYY MMMM DD").day();
@@ -76,6 +80,11 @@ class Days {
             day.type = config[this.month] && config[this.month].filter((x) => x == day.nr).length ? 'state_holiday' : day.type;
             if (day.type == 'weekend') day.jq.addClass('weekend');
             if (day.type == 'state_holiday') day.jq.addClass('state_holiday');
+            if (day.type != 'normal') {
+                day.jq.removeClass('clickable');
+            } else {
+                day.jq.addClass('clickable');
+            }
         }
 
     }
@@ -113,14 +122,14 @@ class Days {
                     }
                 }, this), timmer);
 
-                timmer += 50;
+                timmer += 30;
             }
 
             setTimeout($.proxy(function(){
 
                 this.days = this.days.filter((x) => x);
                 this.preselect();
-            }, this), timmer + 500);
+            }, this), timmer + 100);
 
         }, this));
     }
@@ -132,12 +141,14 @@ class Days {
 
             if (day.hasClass('day_selected')) {
                 this.days_selected = this.days_selected.remove(day.text());
-                change_char_nice(totalDisplay, Number(totalDisplay.text()) -1);
+                this.totalDisplay = this.totalDisplay - 1; 
+                utils.change_char_nice(totalDisplay, this.totalDisplay);
 
                 day.removeClass('day_selected');
-            } else if (day.hasClass('')) {
+            } else if (day.attr('class') == 'clickable') {
                 this.days_selected.push(Number(day.text()));
-                utils.change_char_nice(totalDisplay, Number(totalDisplay.text()) + 1);
+                this.totalDisplay = this.totalDisplay + 1;
+                utils.change_char_nice(totalDisplay, this.totalDisplay);
 
                 day.addClass('day_selected');
             }
@@ -173,7 +184,8 @@ class Days {
             day.jq.removeClass('day_selected');
         }
         this.days_selected = [];
-        utils.change_char_nice($('div.main div.panel div div.month div.total p'), 0);
+        this.totalDisplay = 0
+        utils.change_char_nice($('div.main div.panel div div.month div.total p'), this.totalDisplay);
     }
 
     save_interval(display) {

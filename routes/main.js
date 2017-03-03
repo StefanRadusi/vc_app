@@ -26,9 +26,14 @@ router.get('/check_data', function(req, res) {
   
   console.log(req.query);
   
+  let total_days
+  
   db.find_user_year(req.query.user, req.query.year).then(function(data) {
     console.log(data);
-    res.json({response : data.years[req.query.year]});
+    res.json({
+      response : data.years[req.query.year],
+      total_days : 21
+    });
   }).then(() => db.connection.close());
   
 });

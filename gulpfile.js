@@ -8,7 +8,7 @@ var watch = require('gulp-watch');
 
 // Watch for browserfy
 gulp.task('scripts', function() {
-    return watch(['./public/javascripts/main.js', './public/javascripts/holidayConfig.js'], function() {
+    return watch(['./public/javascripts/main.js', './public/javascripts/holidayConfig.js', './public/javascripts/main_modules/*'], function() {
         gulp.src('./public/javascripts/main.js')
         .pipe(browserify({debug : true}))
         .pipe(rename('bundle.js'))

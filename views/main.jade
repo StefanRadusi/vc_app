@@ -26,8 +26,8 @@ html
                         p.column_name Month
                         div.month_input
                             p.month_text January
-                            p.up >
-                            p.down >
+                            p.up.clickable >
+                            p.down.clickable >
 
                         p.total total/month
                         div.total
@@ -39,12 +39,14 @@ html
 
                     div.actions
                         p.column_name Actions
-                        div.clear_selection
-                            img(src='/images/clear_selection.png')
-                            p clear selection
                         div.save_interval
-                            img(src='/images/save_interval.png')
-                            p add interval
+                            img(src='/images/Calendar-Add.png').clickable
+                            //p add interval
+                        div.clear_selection
+                            img(src='/images/clear.png').clickable
+                            //p clear selection
+                        div.savePTO
+                            img(src='/images/save.png').clickable
 
                 div.display.hide
                     p.title Vacation Leave Intervals
@@ -55,19 +57,11 @@ html
                             th Days
                             th Total
                         tbody
-                            tr
-                                td Jan
-                                td 2,6,8,9
-                                td 6
-                            tr
-                                td Feb
-                                td 16,15
-                                td 2
                     div.totalYear
                         p Total/year
                         p.total 0
 
-                    p.savePTO Save
+                    
 
 
 

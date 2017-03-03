@@ -1,6 +1,3 @@
-/**
- *  Created by stef on 12/29/2016.
- */
 let config = require('./config/holidayConfig.js');
 let LogIn = require('./main_modules/logIn.js');
 let Header = require('./main_modules/Header.js');
@@ -56,11 +53,13 @@ class Panel {
         this.year = year;
         this.jq = $('div.main div.panel');
         this.jq.removeClass('hide');
+        
         this.month = new Month();
         this.days = new Days(this.month.month, year, source_data);
+        
         this.month.change_month(this.days);
+        
         this.month.change_month_up_down();
         
     }
 }
-
