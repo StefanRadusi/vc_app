@@ -38,4 +38,8 @@ router.get('/check_data', function(req, res) {
   
 });
 
+router.get('/profile', function(req, res) {
+  res.render('profile', { title: 'Vacation Leave - profile' });
+});
+
 module.exports = router;

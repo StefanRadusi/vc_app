@@ -1,0 +1,13 @@
+@import 'animations';
+
+$red: rgba(175, 66, 72,1);
+$blue: #00B7FF;
+$white: rgba(253,248,248,1);
+$orange: rgba(234,162,165,1);
+$green: rgba(4, 72, 69,1);
+$green_light:rgba(137,168, 64,1);
+$cream: rgba(203,207,207,1);
+
+.single_char_change {
+  animation: single_char 0.5s ease-in-out;
+}

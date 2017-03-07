@@ -2,18 +2,13 @@ doctype html
 html
     head
         title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/main.css')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
-        script(src='/javascripts/moment.min.js')
-        script(src='/javascripts/bundle.js')
+        script(src='/javascripts/lib/moment.min.js')
+        script(src='/javascripts-dist/main.js')
 
     body
-        div.header
-            include icon.html
-            span.title= title
-            div.user
-                p.name user
-                img(src='/images/icon_user.png')
+        include partials/header.jade
 
         div.main
             div.log_in
@@ -48,7 +43,7 @@ html
                         div.savePTO
                             img(src='/images/save.png').clickable
 
-                div.display.hide
+                div.display
                     p.title Vacation Leave Intervals
                         span >
                     table

@@ -5,7 +5,6 @@ let Month = require('./main_modules/Month.js');
 let Days = require('./main_modules/Days.js');
 let DisplayIntervals = require('./main_modules/DisplayIntervals.js');
 
-
 let source_data = {
     user : '',
     year: '',

@@ -1,0 +1,72 @@
+@import 'utils';
+
+html {
+  height: 100%;
+}
+
+body {
+  /*min-height: calc(100% - 16px);*/
+  display: flex;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  flex-direction: column;
+  position: relative;
+  background: $white;
+}
+
+a {
+  color: $blue;
+}
+
+h3.prime {
+  color: blue;
+}
+
+div.header {
+    height: 50px;
+    margin-top: 10px;
+    display: flex;
+    position: relative;
+    justify-content: flex-start;
+    align-items: center;
+    background: $red;
+
+    > img {
+        float: left;
+    }
+
+    svg {
+        position: absolute;
+        top: -20px;
+        left: 0px;
+    }
+
+    span.title {
+        margin-left: 100px;
+        font-size: 17px;
+        color: $white;
+    }
+
+   div.user {
+        /*border: 1px solid black;*/
+        margin-left: auto;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        transition: opacity 0.5s;
+        opacity: 0;
+
+        img {
+            height: 70%;
+            margin: 10px;
+        }
+
+        p {
+            color: $orange;
+        }
+    }
+
+}
+
+
+
+
