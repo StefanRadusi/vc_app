@@ -5,10 +5,11 @@ var watch = require('gulp-watch');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var shell = require('gulp-shell');
+var wait = require('gulp-wait')
 
 // Watch for browserfy
 gulp.task('scripts', function() {
-    return watch(['./public/javascripts/*'], function() {
+    return watch(['./public/javascripts/*.js', './public/javascripts/*/*.js'], function() {
         gulp.src('./public/javascripts/*.js')
         .pipe(browserify({debug : true}))
         .pipe(gulp.dest('./public/javascripts-dist/'))
@@ -18,6 +19,7 @@ gulp.task('scripts', function() {
 gulp.task('style', function(){
     return watch(['./public/sass/*'], function() {
         gulp.src('./public/sass/*')
+            .pipe(wait(500))
             .pipe(sourcemaps.init())
             .pipe(sass().on('error', sass.logError))
             .pipe(sourcemaps.write())

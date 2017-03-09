@@ -95,3 +95,38 @@ module.exports.change_char_nice = function(jq_obj, new_text) {
         jq_obj.removeClass('single_char_change');
     }, 600);
 }
+
+module.exports.get_url_params = function(param) {
+    let url = window.location.href;
+
+    let result = new RegExp('[\?&]' + param + '=([^&#]*)').exec(window.location.href);
+    result = result&&result[1];
+    if(!result) window.location.replace('/');
+
+    return result;
+}
+
+module.exports.animate_wrong = function(jq_obj) {
+    jq_obj.addClass('wrong_val');
+    let animation_time = Number(/([\d\.]+)/.exec(jq_obj.css('animation'))[1]);
+    setTimeout($.proxy(function() {
+        this.removeClass('wrong_val');
+    }, jq_obj), animation_time * 1000)
+}
+
+module.exports.sendJson = function(url, json) {
+   return new Promise(function(resolve, reject) {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: JSON.stringify(json),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function(msg) {
+                resolve(msg)
+            }
+        }).fail(function(err) {
+            reject(Error(err));
+        });
+   });
+}

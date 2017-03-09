@@ -29,6 +29,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-shell": "^0.6.1",
     "gulp-sourcemaps": "^2.4.1",
+    "gulp-wait": "0.0.2",
     "nodemon": "^1.11.0"
   }
 }

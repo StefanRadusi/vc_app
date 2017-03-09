@@ -1,1 +1,77 @@
 @import 'header';
+
+div.content {
+    color: $green;
+    
+
+    width: 80%;
+    margin: auto;
+
+    >p {
+        font-size: 20px;
+        font-weight: bold;
+        cursor: default;
+    }
+
+    td {
+        font-size: 20px;
+        padding: 10px;
+        position: relative;
+    }
+
+    input, select {
+        height:30px;
+        width: 250px;
+        font-size: 20px;
+        padding-left: 10px;
+        color: $green;
+        border: 1px solid $gray;
+        border-radius:5px; 
+        @include shadow(false);
+
+        transition: all .5s ease;
+        outline: 1px solid $transparent;
+    }
+
+    input:focus {
+        @include shadow(true);
+    }
+
+    input.wrong_val {
+        animation: wrong_val .8s ease;
+    }
+
+    div.save {
+        margin-top: 40px;
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+
+        >div{
+            width: 100%;
+            height: 100%;
+            svg {
+                width: 100%;
+                height: 100%;
+            }
+            transform: translateY(-50px);
+
+            transition: all 1s .5s ease;
+        }
+
+        
+        
+    }
+    div.save:hover #path4162 {
+           animation: hover_flopy 1s infinite;
+    }
+
+    div.save.check >div{
+        transform: translateY(-100px);
+    }
+
+    div.save.fail >div{
+        transform: translateY(0px);
+    }
+
+}

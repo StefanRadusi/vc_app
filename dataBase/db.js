@@ -1,6 +1,3 @@
-/**
- * Created by stef on 1/3/2017.
- */
 class Db {
     constructor(mongodb) {
         this.connection = mongodb;
@@ -25,6 +22,22 @@ class Db {
         query[year_q] = 1;
 
         return this.stored_pto.findOne({user: user}, { fields: query });
+    }
+
+    update_user_profile(data) {
+        return this.stored_pto.update(
+            {user: data.user},
+            { 
+                $set : {
+                    profile : data.profile
+                } 
+            },
+            { upsert : true }
+        );
+    }
+
+    get_profile_data(user) {
+        return this.stored_pto.findOne({user: user});
     }
 }
 

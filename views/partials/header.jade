@@ -4,3 +4,8 @@ div.header
             div.user
                 p.name user
                 img(src='/images/icon_user.png')
+                div.pages
+                    a(href="/?user=#{user_name}") Calendar
+                    a(href="/profile?user=#{user_name}") Profile
+                    a(href="/profile?user=#{user_name}") Team
+                    p.out Sign Out

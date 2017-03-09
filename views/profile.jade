@@ -10,3 +10,48 @@ html
     body
         include partials/header.jade
 
+        div.content
+         p Profile Info   
+
+         table
+            tbody
+                tr
+                    td First Name
+                    td 
+                        input(type='text' regex="name" placeholder="ex: Ionut" value= profile && profile['First Name'])
+                tr 
+                    td Last Name
+                    td 
+                        input(type='text' regex="name" placeholder="ex: Pop" value= profile && profile['Last Name'])
+                tr 
+                    td Email
+                    td 
+                        input(type='text' regex="email" placeholder="ex: ionut.pop@yardi.com" value= profile && profile['Email'])
+                tr 
+                    td Vacation type
+                    td 
+                        select
+                            - for (let country of ['romania', 'sua']) {
+                                - let selected_val = profile && (profile['Vacation type'] == country) ? true : false;
+                                //- - let selected_val = profile
+                                option(value= country selected= selected_val)= country
+                            
+                            - }
+                tr 
+                    td Total nr of vacation days
+                    td
+                        input(type='text' regex='nr' placeholder="ex: 21" value= profile && profile['Total nr of vacation days'])
+                tr 
+                    td Your boss
+                    td 
+                        input(type='text' regex="boss" placeholder="ex: Alexandra Abrudan" value= profile && profile['Your boss'])
+        
+           div.save
+            div.fail    
+                include svg/fail.svg   
+            div.flopy
+                include svg/save.svg
+            div.check    
+                include svg/check.svg
+                       
+        
