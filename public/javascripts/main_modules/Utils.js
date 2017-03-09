@@ -101,7 +101,7 @@ module.exports.get_url_params = function(param) {
 
     let result = new RegExp('[\?&]' + param + '=([^&#]*)').exec(window.location.href);
     result = result&&result[1];
-    if(!result) window.location.replace('/');
+    // if(!result) window.location.replace('/');
 
     return result;
 }

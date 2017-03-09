@@ -1,10 +1,15 @@
 let express = require('express');
 let router = express.Router();
 let Db = require('../database/db.js');
+let moment = require('moment');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('main', { title: 'Vacation Leave' });
+
+  let year = moment().format('YYYY');
+  let month = moment().format('MMMM');
+  console.log(year);
+  res.render('main', { title: 'Vacation Leave', year : year, month : month });
 });
 
 //test

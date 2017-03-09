@@ -20,6 +20,7 @@ class Db {
         let year_q = `years.${year}`;
         let query = {};
         query[year_q] = 1;
+        // console.log()
 
         return this.stored_pto.findOne({user: user}, { fields: query });
     }

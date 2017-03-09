@@ -16,13 +16,18 @@ html
                 input
 
             div.panel.hide
+                div.year 
+                    h2 Year: #{year}
+                    p.up.clickable >
+                    p.down.clickable < 
+
                 div.columns
                     div.month
                         p.column_name Month
                         div.month_input
-                            p.month_text January
+                            p.month_text= month
                             p.up.clickable >
-                            p.down.clickable >
+                            p.down.clickable <
 
                         p.total total/month
                         div.total

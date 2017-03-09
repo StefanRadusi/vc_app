@@ -22,6 +22,11 @@ class Days {
 
     }
 
+    setYear(year) {
+        this.year = year;
+        this.jq.trigger('month_changed', this.month);
+    }
+
     init_days() {
         this.total_days = moment(this.year + ' ' + this.month, "YYYY MMMM").daysInMonth();
 
@@ -30,9 +35,9 @@ class Days {
             this.jq.find('div.calendar').append(day.jq);
             this.days.push(day);
         }
-        let first_day = this.days[0].day_of_week;
 
-        for (let i = 0; i < 6 - first_day; i++) {
+        let first_day = this.days[0].day_of_week || 7;
+        for (let i = 0; i < first_day - 1; i++) {
             let fill_day_preppend = this.create_month_day(0, 1);
             this.jq.find('div.calendar').prepend(fill_day_preppend.jq);
             this.days.unshift(fill_day_preppend);
@@ -126,10 +131,9 @@ class Days {
             }
 
             setTimeout($.proxy(function(){
-
                 this.days = this.days.filter((x) => x);
                 this.preselect();
-            }, this), timmer + 100);
+            }, this), timmer + 200);
 
         }, this));
     }
@@ -154,7 +158,7 @@ class Days {
             }
         }, this));
 
-        this.preselect();
+        // this.preselect();
     }
 
     preselect() {

@@ -22,6 +22,42 @@ div.main {
     } 
   }
 
+  div.year {
+    h2 {
+      display: inline-block;
+      color: $green;
+    }
+
+    p {
+      cursor: default;
+      display: inline-block;
+      text-align: center;
+      margin: 0;
+      width: 30px;
+      height: 22px;
+      font-size: 20px;
+
+      padding: 5px;
+      padding-left: 2px;
+      padding-right: 2px;
+
+      background: $red;
+      color: white;
+      border-radius: 10px;
+      
+      transition: transform 0.3s ease-in-out;
+    }
+
+    p.up {
+      transform: rotateZ(-90deg);
+      margin-left: 10px;
+    }
+
+    p.down {
+      transform: rotateZ(-90deg);
+    }
+
+  }
   div.panel {
     width: 80%;
     display: flex;
@@ -121,7 +157,7 @@ div.main {
         }
 
         p.down {
-          transform: rotateZ(90deg);
+          transform: rotateZ(-90deg);
         }
               
       }

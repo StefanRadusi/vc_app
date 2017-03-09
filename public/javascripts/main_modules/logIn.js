@@ -24,24 +24,25 @@ class LogIn {
 
                 this.set_messaje('Please choose year');
                 this.jq.find('input').val('');
-            } else if (event.key == 'Enter') {
-                this.year = $(event.currentTarget).val();
-                if (/^\d{4}$/.test(this.year)) {
-                    header.set_year(this.year);
-                    this.jq.hide();
-                }
-                this.source_data.year = this.year;
-
-                $(document).trigger('user_year_set');
-
-                $.get( "/check_data", {user : this.user, year: this.year}, $.proxy(function( data ) {
-                    console.log(this.source_data);
-                    this.source_data.months = data.response;
-
-                    $('div.display table').trigger('renderIntervals', 1);
-                    //$('div.display table tbody tr').first().trigger('click');
-                }, this));
             }
+            // } else if (event.key == 'Enter') {
+            //     this.year = $(event.currentTarget).val();
+            //     if (/^\d{4}$/.test(this.year)) {
+            //         header.set_year(this.year);
+            //         this.jq.hide();
+            //     }
+            //     this.source_data.year = this.year;
+
+            //     $(document).trigger('user_year_set');
+
+            //     $.get( "/check_data", {user : this.user, year: this.year}, $.proxy(function( data ) {
+            //         console.log(this.source_data);
+            //         this.source_data.months = data.response;
+
+            //         $('div.display table').trigger('renderIntervals', 1);
+            //         //$('div.display table tbody tr').first().trigger('click');
+            //     }, this));
+            // }
         }, this));
     }
 }
