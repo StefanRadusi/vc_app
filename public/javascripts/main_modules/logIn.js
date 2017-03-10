@@ -4,8 +4,10 @@ class LogIn {
     constructor(source_data) {
         this.source_data = source_data;
         this.jq = $('div.log_in');
-        this.message = 'Log in with email';
+        this.message = 'Type a user name';
         this.user = '';
+
+        this.login();
     }
 
     set_messaje(messaje) {
@@ -13,11 +15,11 @@ class LogIn {
         utils.random_text_change(this.jq.find('p').first(), messaje, 100);
     }
 
-    send_input_text(header) {
+    login() {
         return this.jq.find('input').on('keypress', $.proxy( function(event) {
             if (event.key == 'Enter') {
                 this.user = $(event.currentTarget).val();
-
+                window.location.replace(`/?user=${this.user}`);
 
                 // header.set_user(this.user);
                 // this.source_data.user = this.user;

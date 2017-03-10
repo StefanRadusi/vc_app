@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
   db.get_profile_data(user_name).then(function(data){
     console.log(data);
     let total_days = data && data.profile && data.profile['Total nr of vacation days'];
-    return res.render('main', { title: 'Vacation Leave', year : year, month : month, user_name : user_name, total_days : total_days || 0 });
+    return res.render('main', { title: 'Vacation Leave - calendar', year : year, month : month, user_name : user_name, total_days : total_days || 0 });
   });
 
 });
@@ -63,7 +63,7 @@ router.get('/profile', function(req, res) {
 
   db.get_profile_data(user).then(function(data) {
     console.log(data);
-    res.render('profile', { title: 'Vacation Leave - profile', profile : data&&data.profile, user_name : data.user});
+    res.render('profile', { title: 'Vacation Leave - profile', profile : data&&data.profile, user_name : data && data.user});
   }, (err) => console.error(err)).then(() => db.connection.close(), (err) => console.error(err));
 
   

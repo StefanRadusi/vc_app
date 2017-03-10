@@ -17,8 +17,7 @@ class Days {
             day : Number(moment().format('DD')),
             month : Number(moment().format('MM')),
             year : Number(moment().format('YYYY')),
-        }
-        console.log(this.today);
+        };
 
         this.init_days();
         this.change_days();

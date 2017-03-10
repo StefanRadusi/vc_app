@@ -10,7 +10,12 @@ class DisplayIntervals {
         this.table = this.jq.find('table');
         this.user = user;
         this.year = year;
-        //this.save_data = {};
+        this.totalDays = this.jq.find('div.total p.total').text();
+        this.today = {
+            day : Number(moment().format('DD')),
+            month : Number(moment().format('MM')),
+            year : Number(moment().format('YYYY')),
+        };
 
         this.toggle_panel();
         this.render_intervals();
@@ -44,13 +49,34 @@ class DisplayIntervals {
                     this.table.find('tbody').append(row);
                 }
 
-                // console.log(Object.keys(this.source_data.months));
                 if (this.source_data.months) {
                     utils.change_char_nice(this.jq.find('div.totalYear p.total'), Object.keys(this.source_data.months).reduce(
                         (sum, x) => sum + this.source_data.months[x].length
                         , 0));
+
+                    // console.log(this.totalDays);
+                    let days_left = Object.keys(this.source_data.months).reduce(
+                        (sum, x) => {
+                            if(this.year == this.today.year) {
+                                if (this.today.month == Number(moment(x, 'MMMM').format('MM'))) {
+                                    return sum - this.source_data.months[x].reduce(
+                                        (sum, x) => {
+                                            if (Number(x) < this.today.day) {
+                                                return sum + 1;
+                                            }
+                                            return sum;
+                                        }
+                                    , 0)
+                                } else if (this.today.month > Number(moment(x, 'MMMM').format('MM'))) {
+                                    return sum - this.source_data.months[x].length;     
+                                }
+                            }
+                            return sum;
+                        }
+                    , this.totalDays);
+                    utils.change_char_nice(this.jq.find('div.left p.total'), days_left); 
+                    // console.log(days_left);
                 } 
-                
 
                 this.table.removeClass('hide_for_render');
                 if (intitial_render) {
