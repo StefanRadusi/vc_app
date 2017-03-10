@@ -13,6 +13,12 @@ class Days {
         this.days_names = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
         this.total_days = '';
         this.days_selected = [];
+        this.today =  {
+            day : Number(moment().format('DD')),
+            month : Number(moment().format('MM')),
+            year : Number(moment().format('YYYY')),
+        }
+        console.log(this.today);
 
         this.init_days();
         this.change_days();
@@ -64,9 +70,9 @@ class Days {
     set_day(day, day_nr, fill) {
         day.jq.removeClass('fill');
         day.jq.removeClass('state_holiday');
-        //day.jq.removeClass('clickable');
-
         day.jq.removeClass('weekend');
+        day.jq.removeClass('day_passed');
+
         if (fill) {
             day.nr = day_nr;
             day.day_of_week = -1;
@@ -76,6 +82,7 @@ class Days {
             day.jq.addClass('fill');
             day.jq.removeClass('clickable');
         } else {
+           
             day.nr = day_nr;
             day.day_of_week =  moment(this.year + ' ' + this.month + ' ' + day_nr, "YYYY MMMM DD").day();
             //day.jq.text(day.nr);
@@ -89,6 +96,19 @@ class Days {
                 day.jq.removeClass('clickable');
             } else {
                 day.jq.addClass('clickable');
+            }
+
+            let month = Number(moment(this.month, 'MMMM').format('MM'));
+            if(this.year == this.today.year) {
+                if (this.today.month == month) {
+                    if(this.today.day > day_nr) {
+                        day.jq.addClass('day_passed');
+                    }
+                } else if (this.today.month > month) {
+                    day.jq.addClass('day_passed');
+                }
+            } else if (this.year < this.today.year) {
+                day.jq.addClass('day_passed');
             }
         }
 
@@ -142,14 +162,14 @@ class Days {
         this.jq.find('div.calendar').on('click', 'p', $.proxy(function(event){
             let day = $(event.currentTarget);
             let totalDisplay = $('div.main div.panel div div.month div.total p');
-
+            console.log('in');
             if (day.hasClass('day_selected')) {
                 this.days_selected = this.days_selected.remove(day.text());
                 this.totalDisplay = this.totalDisplay - 1; 
                 utils.change_char_nice(totalDisplay, this.totalDisplay);
 
                 day.removeClass('day_selected');
-            } else if (day.attr('class') == 'clickable') {
+            } else if (/clickable/.test(day.attr('class'))) {
                 this.days_selected.push(Number(day.text()));
                 this.totalDisplay = this.totalDisplay + 1;
                 utils.change_char_nice(totalDisplay, this.totalDisplay);
@@ -162,7 +182,7 @@ class Days {
     }
 
     preselect() {
-        if(this.source_data.months[this.month]) {
+        if(this.source_data.months && this.source_data.months[this.month]) {
             for (let day_selected of this.source_data.months[this.month]) {
                 for (let current_day of this.days) {
                     if (current_day.nr == day_selected) {

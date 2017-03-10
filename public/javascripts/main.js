@@ -31,28 +31,25 @@ if (!Array.prototype.remove){
 // ---------- main -----------
 
 $(document).ready(function() {
+    let logIn = new LogIn();
     let user = utils.get_url_params('user');
-    source_data.user = user;
 
+    if (!user) return 1;
+
+    source_data.user = user;
     let header = new Header();
 
     let panel = new Panel(user);
     source_data.year = panel.year;
 
-    let logIn = new LogIn(panel);
-    logIn.send_input_text(header);
-
     let displayIntervals = new DisplayIntervals(source_data.user, source_data.year, source_data);
     panel.days.save_interval(displayIntervals);
 
+    logIn.jq.hide();
+    panel.jq.removeClass('hide');
 
-    if(user) {
-        logIn.jq.hide();
-        panel.jq.removeClass('hide');
-
-        header.jq.find('div.user').removeClass('hide');
-        header.set_user(user);
-    } 
+    header.jq.find('div.user').removeClass('hide');
+    header.set_user(user);
    
 });
 
@@ -80,11 +77,9 @@ class Panel {
             source_data.months = data;
             console.log(source_data);
             setTimeout(() => {
-                // this.days.preselect();
-                $('div.display table').trigger('renderIntervals', data);
+                this.days.preselect();
+                $('div.display table').trigger('renderIntervals');
             }, 1000);
-            
-
         })
     }
 
@@ -107,8 +102,8 @@ class Panel {
             this.getSourceData().then((data) => {  
                 if (data) {
                     source_data.months = data;
-                    $('div.display table').trigger('renderIntervals', data);
                 }
+                $('div.display table').trigger('renderIntervals');
             })
         }, this));
     }

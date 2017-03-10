@@ -32,9 +32,10 @@ class DisplayIntervals {
 
             this.table.addClass('hide_for_render');
             setTimeout($.proxy(function(){
-
                 this.table.find('tbody').html('');
-                for (let month in this.source_data.months) {
+
+                let sorted_months = Object.keys(this.source_data.months).sort((a, b) => moment(a, 'MMMM').format('MM') - moment(b, 'MMMM').format('MM'));
+                for (let month of sorted_months) {
                     let row = $('<tr></tr>');
                     row.append(`<td>${month}</td>`);
                     row.append(`<td>${this.source_data.months[month].join(',')}</td>`);
@@ -43,10 +44,13 @@ class DisplayIntervals {
                     this.table.find('tbody').append(row);
                 }
 
-                console.log(Object.keys(this.source_data.months));
-                utils.change_char_nice(this.jq.find('div.totalYear p.total'), Object.keys(this.source_data.months).reduce(
-                    (sum, x) => sum + this.source_data.months[x].length
-                    , 0));
+                // console.log(Object.keys(this.source_data.months));
+                if (this.source_data.months) {
+                    utils.change_char_nice(this.jq.find('div.totalYear p.total'), Object.keys(this.source_data.months).reduce(
+                        (sum, x) => sum + this.source_data.months[x].length
+                        , 0));
+                } 
+                
 
                 this.table.removeClass('hide_for_render');
                 if (intitial_render) {

@@ -5,11 +5,20 @@ let moment = require('moment');
 
 /* GET home page. */
 router.get('/', function(req, res) {
+  let monkdb = require('monk')('localhost/vc_app');
+  let db = new Db(monkdb);
 
   let year = moment().format('YYYY');
   let month = moment().format('MMMM');
   console.log(year);
-  res.render('main', { title: 'Vacation Leave', year : year, month : month });
+  let user_name = req.query && req.query.user;
+  console.log(user_name);
+  db.get_profile_data(user_name).then(function(data){
+    console.log(data);
+    let total_days = data && data.profile && data.profile['Total nr of vacation days'];
+    return res.render('main', { title: 'Vacation Leave', year : year, month : month, user_name : user_name, total_days : total_days || 0 });
+  });
+
 });
 
 //test
@@ -36,8 +45,7 @@ router.get('/check_data', function(req, res) {
   db.find_user_year(req.query.user, req.query.year).then(function(data) {
     console.log(data);
     res.json({
-      response : data.years[req.query.year],
-      total_days : 21
+      response : (data && data.years[req.query.year]) || {}
     });
   }).then(() => db.connection.close());
   
